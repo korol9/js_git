@@ -1,91 +1,93 @@
-// "use strict";
-
-// if (4 == 5) {
-//     console.log('ok');
-// } else {
-//     console.log('no');
-// }
-
-// let num = 50;
-
-// switch (num) {
-//     case 51:
-//         console.log('no');
-//         break;
-//     case 49:
-//         console.log('no');
-//         break;
-//     case 50:
-//         console.log('yes');
-//         break;
-//     default:
-//         console.log('no-no-no');
-//         break;
-// }
+'use strict';
 
 // let num = 10;
 
-// do {
-//     console.log(num);
-//     num++;
+// function showFirstMessage(text) {
+//     num = 10;
+//     console.log(text);
 // }
-// while (num < 15);
+// showFirstMessage('Hello World!');
+// console.log(num);
 
-// for (let i = 1; i < 8; i++) {
-//     if (i == 5) {
-//         continue;
-//     }
-//     console.log(i);
+// let a = 3;
+
+// function addTwo(x) {
+//     let ret = x + 2;
+//     return ret;
 // }
+// let b = addTwo(a);
+// console.log(b);
 
-let numberOfFilms;
-numberOfFilms = +prompt("Сколько фильмов вы уже просмотрели?", '');
+// let str = "straw berry";
 
-
+// console.log(str.slice(6, 11));
+// console.log(str);
 let personalMovieDB = {
     movies: {},
-    count: numberOfFilms,
+    count: [],
     actors: {},
     genres: [],
     privat: false
 };
 
-let i = 0;
-while (i < 2) {
-    const film = prompt('Какой фильм вы смотрели?', ''),
-        ballFilm = prompt('Какую оценку вы поставите фильму?');
-    if (film != null && ballFilm != null && film != '' && ballFilm != '' && film.length < 50) {
-        personalMovieDB.movies[film] = ballFilm;
-        alert('Thanks');
+let showMyDB = function () {
+    if (personalMovieDB.privat == false) {
+        console.log(personalMovieDB);
     } else {
-        alert('Invalid notation');
-        i--;
+        console.log('This Data Base is privated');
     }
-    i++;
+};
+
+
+let numberOfFilms;
+
+function start() {
+    numberOfFilms = +prompt("Сколько фильмов вы уже просмотрели?", '');
+
+    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = +prompt("Сколько фильмов вы уже просмотрели?", '');
+    }
 }
 
-if (personalMovieDB.count < 10) {
-    alert("Просмотрено довольно мало фильмов");
-} else if (10 <= personalMovieDB.count && personalMovieDB.count < 30) {
-    alert("Вы классический зритель");
-} else if (30 <= personalMovieDB.count) {
-    alert("Вы киноман");
-} else {
-    alert("Error");
+
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++) {
+        const film = prompt('Какой фильм вы смотрели?', ''),
+            ballFilm = prompt('Какую оценку вы поставите фильму?');
+
+        if (film != null && ballFilm != null && film != '' && ballFilm != '' && film.length < 50) {
+            personalMovieDB.movies[film] = ballFilm;
+            alert('Thanks');
+        } else {
+            alert('Invalid notation');
+            i--;
+        }
+    }
 }
 
-console.log(personalMovieDB);
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        alert("Просмотрено довольно мало фильмов");
+    } else if (10 <= personalMovieDB.count && personalMovieDB.count < 30) {
+        alert("Вы классический зритель");
+    } else if (30 <= personalMovieDB.count) {
+        alert("Вы киноман");
+    } else {
+        alert("Error");
+    }
+}
+
+function writeYourGenres() {
+    for (let i = 1; i <= 3; i++) {
+        const genre = prompt(`Ваш любимый жанр под номером ${i}?`, '');
+        personalMovieDB.genres[i - 1] = genre;
+    }
+}
 
 
-// for (let i = 0; i < 2; i++) {
-//     const film = prompt('Какой фильм вы смотрели?', ''),
-//         ballFilm = prompt('Какую оценку вы поставите фильму?');
 
-//     if (film != null && ballFilm != null && film != '' && ballFilm != '' && film.length < 50) {
-//         personalMovieDB.movies[film] = ballFilm;
-//         alert('Thanks');
-//     } else {
-//         alert('Invalid notation');
-//         i--;
-//     }
-// }
+start();
+rememberMyFilms();
+detectPersonalLevel();
+writeYourGenres();
+showMyDB();
